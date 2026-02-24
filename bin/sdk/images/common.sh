@@ -14,6 +14,8 @@ function Images::destroy() {
     # ${XARGS_NO_RUN_IF_EMPTY} must be without quotes
     # shellcheck disable=SC2086
     docker images --filter "reference=${SPRYKER_DOCKER_PREFIX}_*:${SPRYKER_DOCKER_TAG}" --format "{{.ID}}" | xargs ${XARGS_NO_RUN_IF_EMPTY} docker rmi -f
+    docker images --filter "reference=${SPRYKER_DOCKER_PREFIX}_app_build*" --format "{{.ID}}" | xargs ${XARGS_NO_RUN_IF_EMPTY} docker rmi -f
+    docker images --filter "reference=${SPRYKER_DOCKER_PREFIX}_frontend_build*" --format "{{.ID}}" | xargs ${XARGS_NO_RUN_IF_EMPTY} docker rmi -f
     docker images --filter "reference=${SPRYKER_DOCKER_PREFIX}_builder_assets*" --format "{{.ID}}" | xargs ${XARGS_NO_RUN_IF_EMPTY} docker rmi -f
     docker images --filter "reference=spryker_docker_sdk*" --format "{{.ID}}" | xargs ${XARGS_NO_RUN_IF_EMPTY} docker rmi -f
 
